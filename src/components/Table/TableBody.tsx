@@ -9,15 +9,13 @@ const TableBody = ({
   data: { name, city, abbreviation, conference, division },
 }: Props) => {
   return (
-    <tbody>
-      <tr>
-        <th>{name}</th>
-        <td>{city}</td>
-        <td>{abbreviation}</td>
-        <td>{conference}</td>
-        <td>{division}</td>
-      </tr>
-    </tbody>
+    <tr>
+      <th>{name}</th>
+      <td>{city}</td>
+      <td>{abbreviation}</td>
+      <td>{conference}</td>
+      <td>{division}</td>
+    </tr>
   );
 };
 

@@ -2,9 +2,10 @@ import { HomePage } from './pages';
 
 function App() {
   return (
-    <div className="App">
+    <>
+      {/* Fragment for adding new pages here */}
       <HomePage />
-    </div>
+    </>
   );
 }
 export default App;

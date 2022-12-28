@@ -54,7 +54,6 @@ img{
 }
 button{
  border: none;
- background-color: black;
  border-radius: 10px;
  font-size: 18px;
  font-weight: 900;

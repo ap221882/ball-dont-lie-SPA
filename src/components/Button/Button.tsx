@@ -5,7 +5,7 @@ type IButtonProps = {
 };
 
 export const Button = ({ icon }: IButtonProps) => {
-  return <div>{icon}</div>;
+  return <button>{icon}</button>;
 };
 
 export default Button;

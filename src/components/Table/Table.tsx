@@ -9,9 +9,7 @@ type ITableProps = {
 const Table = ({ data }: ITableProps) => {
   return (
     <StyledTable>
-      <table>
-        <TableBody data={data} />
-      </table>
+      <TableBody data={data} />
     </StyledTable>
   );
 };
