@@ -34,7 +34,7 @@ const teamSlice = createSlice({
       })
       .addCase(getTeams.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // state.teams = action.payload;
+        state.teams = [...(action.payload as ITeam[])];
       })
       .addCase(getTeams.rejected, (state, action) => {
         state.status = 'failed';
@@ -42,3 +42,5 @@ const teamSlice = createSlice({
       });
   },
 });
+
+export default teamSlice.reducer;
