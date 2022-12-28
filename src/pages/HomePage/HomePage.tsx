@@ -1,9 +1,14 @@
-import React from 'react';
+import { TableContainer } from '../../containers';
 
+import { StyledHomePage } from './homePage.style';
 type Props = {};
 
 const HomePage = (props: Props) => {
-  return <div>HomePage</div>;
+  return (
+    <StyledHomePage>
+      <TableContainer />
+    </StyledHomePage>
+  );
 };
 
 export default HomePage;
