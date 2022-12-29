@@ -6,13 +6,11 @@ import { getTeams } from '../../slices/teamSlice';
 import Table from './TableParts/Table';
 import TableContext from './TableContext/TableContext';
 
-type Props = {};
-
 /**
  * * TABLE CONTAINER HAVING DYNAMIC DATA OF SEVEN ITEMS
  * * ---- HAVE PAGINATION
  */
-const TableContainer = (props: Props) => {
+const TableContainer = () => {
   const teams = useAppSelector((state) => state.teams);
   const { pageItems: teamPageData, page: currentPage } = teams.pageData;
   const teamsStatus = teams.status;

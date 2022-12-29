@@ -12,8 +12,6 @@ const GameInfo = ({ gameId, fullName }: IGameInfoProps) => {
     {} as IGameDataResponse,
   );
 
-  console.log(gameData, 'gameData');
-
   /**
    * For fetching game data according to the id in the route
    */

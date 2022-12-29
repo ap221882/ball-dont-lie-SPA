@@ -1,24 +1,20 @@
 import { ITeam } from '../../types';
-import { StyledTable } from './table.style';
+import TableRow from './TableRow';
 
 type ITableProps = {
-  data: ITeam;
+  teamPageData: ITeam[];
 };
 
-const Table = ({
-  data: { name, city, abbreviation, conference, division },
-}: ITableProps) => {
+const TableBody = ({ teamPageData }: ITableProps) => {
   return (
-    <StyledTable>
-      <tr>
-        <th>{name}</th>
-        <td>{city}</td>
-        <td>{abbreviation}</td>
-        <td>{conference}</td>
-        <td>{division}</td>
-      </tr>
-    </StyledTable>
+    <>
+      <tbody>
+        {teamPageData.map((team) => {
+          return <TableRow data={team} key={team.id} />;
+        })}
+      </tbody>
+    </>
   );
 };
 
-export default Table;
+export default TableBody;

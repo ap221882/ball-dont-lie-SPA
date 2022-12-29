@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, Dispatch } from 'react';
 
 export interface ITableContextProviderProps {
   children: ReactElement;
@@ -14,3 +14,8 @@ export type InitialColumnStateType = {
   accessor: string;
   sort: string;
 }[];
+
+export interface ITableDispatchContext {
+  reducerDispatch: Dispatch<COLUMN_ACTIONTYPE>;
+  handleSort: (accessor: string, sort: string) => void;
+}

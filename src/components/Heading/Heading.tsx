@@ -1,10 +1,10 @@
 import { StyledHeading } from './heading.style';
 
-type Props = {
+interface IHeadingProps {
   title?: string;
-};
+}
 
-const Heading = ({ title }: Props) => {
+const Heading = ({ title }: IHeadingProps) => {
   return <StyledHeading>{title}</StyledHeading>;
 };
 

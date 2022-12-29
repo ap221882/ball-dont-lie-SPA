@@ -1,9 +1,7 @@
 import { StyledHeader } from './header.style';
 import { Heading } from '../../components';
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <StyledHeader>
       <Heading title="NBA Teams" />

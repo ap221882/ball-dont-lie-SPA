@@ -1,8 +1,6 @@
 import { StyledSearchBar } from './searchBar.style';
 
-type Props = {};
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   return (
     <StyledSearchBar>
       <input type="text" />

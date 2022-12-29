@@ -8,9 +8,7 @@ const Table = ({ teamPageData, currentPage }: ITableProps) => {
     <>
       <table>
         <TableHead />
-        {teamPageData.map((team) => {
-          return <TableBody data={team} key={team.id} />;
-        })}
+        <TableBody teamPageData={teamPageData} />
       </table>
       <PageNavigator currentPage={currentPage} />
     </>

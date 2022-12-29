@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAllTeams } from '../services';
 import { ITeamsInitialState } from './slices.type';
 import { ITeam } from '../types';
+import { compareOnTheBasisOfName, doesStringAincludesB } from '../utils';
 
 const initialState = {
   teams: [],
@@ -25,32 +26,6 @@ export const getTeams = createAsyncThunk('teams/getTeams', async () => {
     return (err as Error).message;
   }
 });
-
-//////////////////////////////////////////////
-export const compareOnTheBasisOfName = (
-  elemA: Record<string, string> | string,
-  elemB: Record<string, string> | string,
-  fieldName: string,
-  desc?: boolean,
-) => {
-  const fieldA = fieldName
-    ? String((elemA as Record<string, string>)[fieldName]).toUpperCase()
-    : (elemA as string).toUpperCase();
-  const fieldB = fieldName
-    ? String((elemB as Record<string, string>)[fieldName]).toUpperCase()
-    : (elemB as string).toUpperCase();
-  if (desc) {
-    if (fieldA > fieldB) return -1;
-    else if (fieldA < fieldB) return 1;
-  } else {
-    if (fieldA < fieldB) return -1;
-    else if (fieldA > fieldB) return 1;
-  }
-
-  return 0;
-};
-
-//////////////////////////////////////////////
 
 const teamSlice = createSlice({
   name: 'teams',
@@ -110,9 +85,18 @@ const teamSlice = createSlice({
       pageData.pageItems = sortedTeams;
     },
     filterTeams: (state, action: PayloadAction<string>) => {
-      state.teams = state.teams.filter((team) => {
-        return team.city.includes(action.payload);
-      });
+      state.teams = state.teams.filter(
+        ({ city, name, full_name, abbreviation, division, conference }) => {
+          return (
+            doesStringAincludesB(city, action.payload) ||
+            doesStringAincludesB(name, action.payload) ||
+            doesStringAincludesB(full_name, action.payload) ||
+            doesStringAincludesB(abbreviation, action.payload) ||
+            doesStringAincludesB(division, action.payload) ||
+            doesStringAincludesB(conference, action.payload)
+          );
+        },
+      );
       state.pageData.pageItems = state.teams.slice(
         (state.pageData.page - 1) * state.pageData.pageSize,
         state.pageData.page * state.pageData.pageSize,

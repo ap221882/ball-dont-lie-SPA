@@ -7,19 +7,17 @@ import {
 } from '../../../slices/teamSlice';
 import { columnReducer, initialColumnState } from './tableContextReducer';
 import {
-  COLUMN_ACTIONTYPE,
   InitialColumnStateType,
   ITableContextProviderProps,
+  ITableDispatchContext,
 } from './tableContext.types';
 
-type ITableDispatchContext = {
-  reducerDispatch: Dispatch<COLUMN_ACTIONTYPE>;
-  handleSort: (accessor: string, sort: string) => void;
-};
+// CONTEXTS
 
 const TableContext = createContext([] as InitialColumnStateType);
 const TableDispatchContext = createContext({} as ITableDispatchContext);
 
+// PROVIDER
 const TableContextProvider = ({ children }: ITableContextProviderProps) => {
   const [columns, reducerDispatch] = useReducer(
     columnReducer,
