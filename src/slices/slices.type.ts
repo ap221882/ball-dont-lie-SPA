@@ -9,4 +9,5 @@ export interface ITeamsInitialState {
     page: number;
     pageSize: number;
   };
+  filteredTeams: ITeam[];
 }

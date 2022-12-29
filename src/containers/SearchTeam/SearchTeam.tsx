@@ -1,6 +1,6 @@
 import { useRef, FormEvent } from 'react';
 
-import { filterTeams, getTeams } from '../../slices/teamSlice';
+import { filterTeams, getTeams, setPageData } from '../../slices/teamSlice';
 import { useAppDispatch } from '../../hooks/typesHooks';
 import { Input } from '../../components';
 import { StyledAdvancedSearch } from './searchTeam.type';
@@ -16,11 +16,11 @@ const SearchTeam = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(searchInputRef.current?.value, 'searchInputRef.current');
     if (searchInputRef.current?.value === '') {
       dispatch(getTeams());
     }
     dispatch(filterTeams(searchInputRef.current?.value as string));
+    dispatch(setPageData());
   };
 
   return (

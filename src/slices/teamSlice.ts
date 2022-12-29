@@ -6,6 +6,7 @@ import { compareOnTheBasisOfName, doesStringAincludesB } from '../utils';
 
 const initialState = {
   teams: [],
+  filteredTeams: [],
   status: 'idle',
   error: null,
   pageData: {
@@ -31,17 +32,25 @@ const teamSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
+    setPageData(state) {
+      const { pageData, filteredTeams } = state;
+      state.pageData.page = 1;
+      pageData.pageItems = filteredTeams.slice(
+        (state.pageData.page - 1) * state.pageData.pageSize,
+        state.pageData.page * state.pageData.pageSize,
+      );
+    },
     setPreviousPage(state) {
-      const { pageData, teams } = state;
+      const { pageData, filteredTeams } = state;
       pageData.page -= 1;
-      pageData.pageItems = teams.slice(
+      pageData.pageItems = filteredTeams.slice(
         (pageData.page - 1) * pageData.pageSize,
         pageData.page * pageData.pageSize,
       );
     },
     setNextPage(state) {
-      const { pageData, teams } = state;
-      const newPageData = teams.slice(
+      const { pageData, filteredTeams } = state;
+      const newPageData = filteredTeams.slice(
         pageData.page * pageData.pageSize,
         (pageData.page + 1) * pageData.pageSize,
       );
@@ -85,7 +94,7 @@ const teamSlice = createSlice({
       pageData.pageItems = sortedTeams;
     },
     filterTeams: (state, action: PayloadAction<string>) => {
-      state.teams = state.teams.filter(
+      state.filteredTeams = state.teams.filter(
         ({ city, name, full_name, abbreviation, division, conference }) => {
           return (
             doesStringAincludesB(city, action.payload) ||
@@ -111,6 +120,7 @@ const teamSlice = createSlice({
       .addCase(getTeams.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.teams = [...(action.payload as ITeam[])];
+        state.filteredTeams = [...(action.payload as ITeam[])];
         state.pageData.pageItems = [
           ...(action.payload.slice(0, state.pageData.pageSize) as ITeam[]),
         ];
@@ -128,6 +138,7 @@ export const {
   sortAscendinglyBy,
   sortDescendinglyBy,
   filterTeams,
+  setPageData,
 } = teamSlice.actions;
 
 export default teamSlice.reducer;
