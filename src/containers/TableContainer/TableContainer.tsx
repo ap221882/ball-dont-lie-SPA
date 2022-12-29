@@ -1,24 +1,22 @@
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../hooks/typesHooks';
-import { Table } from '../../components';
 import { StyledTableContainer } from './tableContainer.styles';
 import { getTeams } from '../../slices/teamSlice';
-import TableHead from './TableHead';
-import PageNavigator from './PageNavigator';
+import Table from './TableParts/Table';
+import TableContext from './TableContext/TableContext';
 
 type Props = {};
 
 /**
  * * TABLE CONTAINER HAVING DYNAMIC DATA OF SEVEN ITEMS
- * * HAVE PAGINATION
+ * * ---- HAVE PAGINATION
  */
 const TableContainer = (props: Props) => {
-  const { pageItems: teamPageData, page: currentPage } = useAppSelector(
-    (state) => state.teams.pageData,
-  );
-  const teamsStatus = useAppSelector((state) => state.teams.status);
-  const teamsError = useAppSelector((state) => state.teams.error);
+  const teams = useAppSelector((state) => state.teams);
+  const { pageItems: teamPageData, page: currentPage } = teams.pageData;
+  const teamsStatus = teams.status;
+  const teamsError = teams.error;
 
   const dispatch = useAppDispatch();
 
@@ -34,18 +32,14 @@ const TableContainer = (props: Props) => {
     return <h3>ERROR: {teamsError}</h3>;
   } else if (teamsStatus === 'succeeded') {
     return (
-      <StyledTableContainer>
-        <table>
-          <TableHead />
-          {teamPageData.map((team) => {
-            return <Table data={team} key={team.id} />;
-          })}
-        </table>
-        <PageNavigator currentPage={currentPage} />
-      </StyledTableContainer>
+      <TableContext>
+        <StyledTableContainer>
+          <Table teamPageData={teamPageData} currentPage={currentPage} />
+        </StyledTableContainer>
+      </TableContext>
     );
   } else {
-    return null;
+    return <p>Some unwanted error occured!</p>;
   }
 };
 

@@ -1,17 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAllTeams } from '../services';
-import { ITeam } from '../services';
-
-interface ITeamsInitialState {
-  teams: ITeam[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null | undefined;
-  pageData: {
-    pageItems: ITeam[];
-    page: number;
-    pageSize: number;
-  };
-}
+import { ITeamsInitialState } from './slices.type';
+import { ITeam } from '../types';
 
 const initialState = {
   teams: [],
@@ -119,6 +109,15 @@ const teamSlice = createSlice({
       );
       pageData.pageItems = sortedTeams;
     },
+    filterTeams: (state, action: PayloadAction<string>) => {
+      state.teams = state.teams.filter((team) => {
+        return team.city.includes(action.payload);
+      });
+      state.pageData.pageItems = state.teams.slice(
+        (state.pageData.page - 1) * state.pageData.pageSize,
+        state.pageData.page * state.pageData.pageSize,
+      );
+    },
   },
   extraReducers(builder) {
     builder
@@ -144,6 +143,7 @@ export const {
   setNextPage,
   sortAscendinglyBy,
   sortDescendinglyBy,
+  filterTeams,
 } = teamSlice.actions;
 
 export default teamSlice.reducer;

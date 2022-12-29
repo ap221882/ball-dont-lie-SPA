@@ -1,16 +1,12 @@
-import { useAppDispatch } from '../../hooks/typesHooks';
-import { Button } from '../../components';
-import { FaGreaterThan, FaLessThan } from '../../assets/icons';
+import { useAppDispatch } from '../../../hooks/typesHooks';
+import { Button } from '../../../components';
+import { FaGreaterThan, FaLessThan } from '../../../assets/icons';
 import {
   setPreviousPage,
   setNextPage,
   sortAscendinglyBy,
-} from '../../slices/teamSlice';
-import { Fragment } from 'react';
-
-type IPageNavigatorProps = {
-  currentPage: number;
-};
+} from '../../../slices/teamSlice';
+import { IPageNavigatorProps } from './tableParts.type';
 
 const PageNavigator = ({ currentPage }: IPageNavigatorProps) => {
   const dispatch = useAppDispatch();
