@@ -1,7 +1,7 @@
 import { StyledHeading } from './heading.style';
 
 type Props = {
-  title: string;
+  title?: string;
 };
 
 const Heading = ({ title }: Props) => {

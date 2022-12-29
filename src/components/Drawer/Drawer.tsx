@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import Heading from '../Heading/Heading';
 
-type Props = {};
+interface IDrawerProps {
+  heading?: string;
+  children: ReactElement;
+}
 
-const Drawer = (props: Props) => {
-  return <div>Drawer</div>;
+const Drawer = ({ heading, children }: IDrawerProps) => {
+  return (
+    <>
+      <Heading title={heading} />
+      {children}
+    </>
+  );
 };
 
 export default Drawer;

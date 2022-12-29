@@ -1,10 +1,16 @@
-import { HomePage } from './pages';
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+import GlobalStyle from './globalStyles';
+import appStore from './store';
+import { myAppRouter } from './routes';
 
 function App() {
   return (
     <>
-      {/* Fragment for adding new pages here */}
-      <HomePage />
+      <Provider store={appStore}>
+        <GlobalStyle />
+        <RouterProvider router={myAppRouter} />
+      </Provider>
     </>
   );
 }
