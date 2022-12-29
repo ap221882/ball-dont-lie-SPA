@@ -15,8 +15,12 @@ const ColumnHeading = ({
 
   return (
     <th onClick={() => onClick?.(accessor, sort)}>
-      <span>{title}</span>
-      <span>{desc ? <TiArrowSortedUp /> : <TiArrowSortedDown />}</span>
+      <div className="column__heading__container">
+        <span>{title}</span>
+        <span className="sorting__icon">
+          {desc ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+        </span>
+      </div>
     </th>
   );
 };
@@ -28,6 +32,7 @@ const TableHead = () => {
   return (
     <thead>
       <tr>
+        <></>
         {columns.map((item) => {
           return (
             <ColumnHeading

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { getGameData } from '../../services';
 import { IGameDataResponse } from '../../types';
 
 type IGameInfoProps = {
   gameId: number;
   fullName?: string;
+  setDrawerOpen?: Dispatch<SetStateAction<boolean>>;
 };
-
-const GameInfo = ({ gameId, fullName }: IGameInfoProps) => {
+// TODO - DO VIA GLOBAL STATE - DRAWER TOGGLE
+const GameInfo = ({ gameId, fullName, setDrawerOpen }: IGameInfoProps) => {
   const [gameData, setGameData] = useState<IGameDataResponse>(
     {} as IGameDataResponse,
   );
@@ -20,6 +21,7 @@ const GameInfo = ({ gameId, fullName }: IGameInfoProps) => {
       try {
         const gameDataResponse = await getGameData(gameId);
         setGameData(gameDataResponse);
+        setDrawerOpen?.(true);
       } catch (error) {
         console.log(error);
       }

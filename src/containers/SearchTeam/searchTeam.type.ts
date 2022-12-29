@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledAdvancedSearch = styled.form`
   height: 4.5rem;
+  width: 60rem;
   max-height: 4.5rem;
   input[type='text'] {
     padding: 0.5rem;
@@ -10,7 +11,7 @@ export const StyledAdvancedSearch = styled.form`
     color: #334155;
     padding: 0 4px;
     height: 100%;
-    width: 80%;
+    width: 100%;
     border-radius: 10px;
   }
   input::placeholder {

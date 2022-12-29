@@ -3,6 +3,7 @@ import { Button } from '../../../components';
 import { FaGreaterThan, FaLessThan } from '../../../assets/icons';
 import { setPreviousPage, setNextPage } from '../../../slices/teamSlice';
 import { IPageNavigatorProps } from './tableParts.type';
+import { StyledPageNavigator } from '../tableContainer.styles';
 
 const PageNavigator = ({ currentPage }: IPageNavigatorProps) => {
   const dispatch = useAppDispatch();
@@ -18,12 +19,12 @@ const PageNavigator = ({ currentPage }: IPageNavigatorProps) => {
   };
 
   return (
-    <>
-      <Button icon={<FaLessThan onClick={handlePreviousPage} />} />
-      <Button icon={<>{currentPage}</>} />
-      <Button icon={<>{currentPage + 1}</>} />
-      <Button icon={<FaGreaterThan onClick={handleNextPage} />} />
-    </>
+    <StyledPageNavigator>
+      <Button icon={<FaLessThan size={16} onClick={handlePreviousPage} />} />
+      <Button icon={<span>{currentPage}</span>} />
+      <Button icon={<span>{currentPage + 1}</span>} />
+      <Button icon={<FaGreaterThan size={16} onClick={handleNextPage} />} />
+    </StyledPageNavigator>
   );
 };
 

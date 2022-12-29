@@ -10,11 +10,11 @@ const GameInfoContainer = () => {
   const selectedTeam = teams.find((team) => team.id === Number(id));
 
   return (
-    <div>
+    <>
       <Drawer heading={selectedTeam?.name}>
         <GameInfo gameId={Number(id)} fullName={selectedTeam?.full_name} />
       </Drawer>
-    </div>
+    </>
   );
 };
 
