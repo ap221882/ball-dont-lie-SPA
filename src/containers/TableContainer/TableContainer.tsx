@@ -21,7 +21,6 @@ const TableContainer = (props: Props) => {
   const teamsError = useAppSelector((state) => state.teams.error);
 
   const dispatch = useAppDispatch();
-  console.log(teamPageData);
 
   useEffect(() => {
     if (teamsStatus === 'idle') {

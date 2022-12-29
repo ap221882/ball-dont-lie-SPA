@@ -24,6 +24,9 @@ const initialState = {
   },
 } as ITeamsInitialState;
 
+/**
+ * * Thunk to get response of all teams and set the store
+ */
 export const getTeams = createAsyncThunk('teams/getTeams', async () => {
   try {
     const teams = await getAllTeams();
@@ -33,26 +36,88 @@ export const getTeams = createAsyncThunk('teams/getTeams', async () => {
   }
 });
 
+//////////////////////////////////////////////
+export const compareOnTheBasisOfName = (
+  elemA: Record<string, string> | string,
+  elemB: Record<string, string> | string,
+  fieldName: string,
+  desc?: boolean,
+) => {
+  const fieldA = fieldName
+    ? String((elemA as Record<string, string>)[fieldName]).toUpperCase()
+    : (elemA as string).toUpperCase();
+  const fieldB = fieldName
+    ? String((elemB as Record<string, string>)[fieldName]).toUpperCase()
+    : (elemB as string).toUpperCase();
+  if (desc) {
+    if (fieldA > fieldB) return -1;
+    else if (fieldA < fieldB) return 1;
+  } else {
+    if (fieldA < fieldB) return -1;
+    else if (fieldA > fieldB) return 1;
+  }
+
+  return 0;
+};
+
+//////////////////////////////////////////////
+
 const teamSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
     setPreviousPage(state) {
-      state.pageData.page -= 1;
-      state.pageData.pageItems = state.teams.slice(
-        state.pageData.page * state.pageData.pageSize,
-        (state.pageData.page + 1) * state.pageData.pageSize,
+      const { pageData, teams } = state;
+      pageData.page -= 1;
+      pageData.pageItems = teams.slice(
+        (pageData.page - 1) * pageData.pageSize,
+        pageData.page * pageData.pageSize,
       );
     },
     setNextPage(state) {
-      const newPageData = state.teams.slice(
-        state.pageData.page * state.pageData.pageSize,
-        (state.pageData.page + 1) * state.pageData.pageSize,
+      const { pageData, teams } = state;
+      const newPageData = teams.slice(
+        pageData.page * pageData.pageSize,
+        (pageData.page + 1) * pageData.pageSize,
       );
+
       if (newPageData.length > 0) {
-        state.pageData.page += 1;
-        state.pageData.pageItems = newPageData;
+        pageData.page += 1;
+        pageData.pageItems = newPageData;
       }
+    },
+    sortAscendinglyBy(
+      state,
+      action: PayloadAction<{ field: string; order?: string }>,
+    ) {
+      const { pageData } = state;
+      const { field } = action.payload;
+      const sortedTeams = state.pageData.pageItems.sort(
+        (elemA: unknown, elemB: unknown) =>
+          compareOnTheBasisOfName(
+            elemA as Record<string, string>,
+            elemB as Record<string, string>,
+            field,
+          ),
+      );
+      pageData.pageItems = sortedTeams;
+    },
+    sortDescendinglyBy(
+      state,
+      action: PayloadAction<{ field: string; order?: string }>,
+    ) {
+      const { pageData } = state;
+      const { field } = action.payload;
+      const sortedTeams = state.pageData.pageItems.sort(
+        (elemA: unknown, elemB: unknown) =>
+          compareOnTheBasisOfName(
+            elemA as Record<string, string>,
+            elemB as Record<string, string>,
+            field,
+            true,
+          ),
+      );
+      pageData.pageItems = sortedTeams;
     },
   },
   extraReducers(builder) {
@@ -74,6 +139,11 @@ const teamSlice = createSlice({
   },
 });
 
-export const { setPreviousPage, setNextPage } = teamSlice.actions;
+export const {
+  setPreviousPage,
+  setNextPage,
+  sortAscendinglyBy,
+  sortDescendinglyBy,
+} = teamSlice.actions;
 
 export default teamSlice.reducer;
