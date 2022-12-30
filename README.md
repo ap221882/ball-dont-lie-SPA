@@ -10,16 +10,20 @@
 - [React Router](https://reactrouter.com/)    
 - [Styled Components](https://styled-components.com/)
 - [Axios](https://axios-http.com/)
-## 🛠️ Install Dependencies    
+## 🪩 Install Dependencies    
 ```bash
 npm install && npm run start
 ```
+
+## 🔫 Features    
+- Showing the list of NBA Teams
+- On selection of a particular team from the table, showing info about any game played by them
         
 ## ➤ License
 Distributed under the MIT License. See [LICENSE]() for more information.
         
 
-## Author
+## 🧑🏽‍💻 Author
 
 #### Ajay Pathak
 
