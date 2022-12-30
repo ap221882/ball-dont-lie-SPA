@@ -1,18 +1,21 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-type Props = {
+interface IGameInfoHeadingProps {
   fullName?: string;
   totalCount?: number;
-};
+}
 
-const GameInfoHeading = ({ fullName, totalCount }: Props) => {
+const GameInfoHeading = ({ fullName, totalCount }: IGameInfoHeadingProps) => {
+  const { t } = useTranslation();
+
   return (
     <article>
       <p>
-        Team full name: <span>{fullName}</span>
+        {t('drawerLabels.header.label1')}: <span>{fullName}</span>
       </p>
       <p>
-        Total Games in 2021: <span>{totalCount}</span>
+        {t('drawerLabels.header.label2')}: <span>{totalCount}</span>
       </p>
     </article>
   );

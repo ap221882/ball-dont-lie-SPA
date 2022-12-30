@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { TiArrowSortedUp, TiArrowSortedDown } from '../../../assets/icons';
 import {
   useTableContext,
@@ -26,18 +28,18 @@ const ColumnHeading = ({
 };
 
 const TableHead = () => {
+  const { t } = useTranslation();
   const columns = useTableContext();
   const { handleSort } = useTableDispatchContext();
 
   return (
     <thead>
       <tr>
-        <></>
-        {columns.map((item) => {
+        {columns.map((item, index) => {
           return (
             <ColumnHeading
               key={item.id}
-              title={item.title}
+              title={t(`tableColumns.column${index + 1}`)}
               onClick={handleSort}
               accessor={item.accessor}
               sort={item.sort}

@@ -6,6 +6,9 @@ import appStore from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// for translation
+import './i18n';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
