@@ -4,6 +4,7 @@ import { filterTeams, getTeams, setPageData } from '../../slices/teamSlice';
 import { useAppDispatch } from '../../hooks/typesHooks';
 import { Input } from '../../components';
 import { StyledAdvancedSearch } from './searchTeam.type';
+import { AiOutlineSearch } from '../../assets/icons';
 
 /**
  * COMPONENT TO IMPLEMENT ADVANCED SEARCH, I.E., SEARCH THROUGH ALL TEAMS
@@ -25,7 +26,12 @@ const SearchTeam = () => {
 
   return (
     <StyledAdvancedSearch onSubmit={handleSubmit}>
-      <Input type="text" name="search" ref={searchInputRef} />
+      <div className="search__bar">
+        <div className="search__icon__container">
+          <AiOutlineSearch size={32} />
+        </div>
+        <Input type="text" name="search" ref={searchInputRef} />
+      </div>
     </StyledAdvancedSearch>
   );
 };

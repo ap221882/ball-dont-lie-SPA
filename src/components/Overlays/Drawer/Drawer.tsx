@@ -1,12 +1,14 @@
 import React, {
   ReactElement,
-  useState,
-  Dispatch,
-  SetStateAction,
   cloneElement,
+  isValidElement,
+  Children,
 } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
+import { useAppSelector, useAppDispatch } from '../../../hooks/typesHooks';
+
+import { hideOverlay as hideOverlayAction } from '../../../slices/overlaySlice';
 import DrawerHeader from './DrawerHeader';
 
 interface IDrawerProps {
@@ -15,37 +17,38 @@ interface IDrawerProps {
 }
 
 interface IStyledDrawer {
-  drawerOpen: boolean;
-  setDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  showOverlay: boolean;
 }
 
 const StyledDrawer = styled.div<IStyledDrawer>`
   top: 0;
   right: 0;
   transform: ${(props) =>
-    props.drawerOpen ? 'translateX(0%)' : 'translateX(100%)'};
+    props.showOverlay ? 'translateX(0%)' : 'translateX(100%)'};
   background: var(--white);
   height: 100%;
   width: 35%;
   overflow: auto;
   position: fixed;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   z-index: 999;
 `;
 
 const Drawer = ({ heading, children }: IDrawerProps) => {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const hideOverlay = () => dispatch({ type: hideOverlayAction.type });
+  const showOverlay = useAppSelector((state) => state.overlay.showOverlay);
   const drawerRoot = document.querySelector('#drawer-root');
 
-  let props = { setDrawerOpen };
+  let propsToBeSendToChild = { showOverlay };
 
   return createPortal(
-    <StyledDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-      <DrawerHeader heading={heading} setDrawerOpen={setDrawerOpen} />
-      {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, props);
+    <StyledDrawer showOverlay={showOverlay}>
+      <DrawerHeader heading={heading} hideOverlay={hideOverlay} />
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, propsToBeSendToChild);
         }
         return child;
       })}

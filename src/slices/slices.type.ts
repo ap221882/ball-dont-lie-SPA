@@ -11,3 +11,9 @@ export interface ITeamsInitialState {
   };
   filteredTeams: ITeam[];
 }
+
+export interface IOverlayInitialState {
+  showOverlay: boolean;
+  overlay: string;
+  data: Record<string, any> | null;
+}

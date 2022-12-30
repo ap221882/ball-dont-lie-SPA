@@ -5,6 +5,7 @@ import { StyledTableContainer } from './tableContainer.styles';
 import { getTeams } from '../../slices/teamSlice';
 import Table from './TableParts/Table';
 import TableContext from './TableContext/TableContext';
+import { TableLoader } from '../../components';
 
 /**
  * * TABLE CONTAINER HAVING DYNAMIC DATA OF SEVEN ITEMS
@@ -25,7 +26,7 @@ const TableContainer = () => {
   }, [teamsStatus, dispatch]);
 
   if (teamsStatus === 'loading') {
-    return <h2>Loading...</h2>;
+    return <TableLoader />;
   } else if (teamsStatus === 'failed') {
     return <h3>ERROR: {teamsError}</h3>;
   } else if (teamsStatus === 'succeeded') {

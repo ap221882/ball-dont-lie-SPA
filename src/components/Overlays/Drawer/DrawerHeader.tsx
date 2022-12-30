@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
+import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 
-import { ImCross } from '../../assets/icons';
-import Heading from '../Heading/Heading';
+import { ImCross } from '../../../assets/icons';
+import Heading from '../../Heading/Heading';
 
 interface IDrawerHeaderProps {
   heading?: string;
-  setDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  hideOverlay: () => { type: 'overlay/hideOverlay' };
 }
 
 const StyledDrawerHeader = styled.div`
@@ -19,8 +19,8 @@ const StyledDrawerHeader = styled.div`
   }
 `;
 
-const DrawerHeader = ({ heading, setDrawerOpen }: IDrawerHeaderProps) => {
-  const handleClose = () => setDrawerOpen(false);
+const DrawerHeader = ({ heading, hideOverlay }: IDrawerHeaderProps) => {
+  const handleClose = () => hideOverlay();
 
   return (
     <StyledDrawerHeader>

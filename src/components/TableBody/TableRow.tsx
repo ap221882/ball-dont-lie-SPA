@@ -1,22 +1,19 @@
-import { useNavigate } from 'react-router-dom';
 import { ITeam } from '../../types';
-
 import { StyledTable } from './table.style';
+import { useAppSelector } from '../../hooks/typesHooks';
 
 type ITableRowProps = {
   data: ITeam;
+  handleRowClick: (id: number) => void;
 };
 
 const TableRow = ({
   data: { name, city, abbreviation, conference, division, id },
+  handleRowClick,
 }: ITableRowProps) => {
-  const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate(`/${id}`);
-  };
+  const showOverlay = useAppSelector((state) => state.overlay.showOverlay);
   return (
-    <StyledTable onClick={handleNavigate}>
+    <StyledTable onClick={() => handleRowClick(id)} showOverlay={showOverlay}>
       <th>{name}</th>
       <td>{city}</td>
       <td>{abbreviation}</td>

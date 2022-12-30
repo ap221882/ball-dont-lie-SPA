@@ -3,14 +3,21 @@ import TableRow from './TableRow';
 
 type ITableProps = {
   teamPageData: ITeam[];
+  handleRowClick: (id: number) => void;
 };
 
-const TableBody = ({ teamPageData }: ITableProps) => {
+const TableBody = ({ teamPageData, handleRowClick }: ITableProps) => {
   return (
     <>
       <tbody>
         {teamPageData.map((team) => {
-          return <TableRow data={team} key={team.id} />;
+          return (
+            <TableRow
+              data={team}
+              key={team.id}
+              handleRowClick={handleRowClick}
+            />
+          );
         })}
       </tbody>
     </>

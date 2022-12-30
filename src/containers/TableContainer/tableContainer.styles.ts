@@ -6,14 +6,23 @@ export const StyledTableContainer = styled.div`
 
   table {
     margin-top: 3rem;
+    height: 448px;
   }
 
+  th {
+    height: 4rem;
+  }
   table > thead > tr > th {
     text-align: center;
     height: 4rem;
   }
   table > tbody > tr > th,
   td {
+    text-align: center;
+    height: 4rem;
+  }
+  table > tbody > tr > th,
+  tr {
     text-align: center;
     height: 4rem;
   }

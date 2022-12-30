@@ -1,16 +1,14 @@
-import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
-import appStore from './store';
 import { myAppRouter } from './routes';
+import { useAppSelector } from './hooks/typesHooks';
 
 function App() {
+  const showOverlay = useAppSelector((state) => state.overlay.showOverlay);
   return (
     <>
-      <Provider store={appStore}>
-        <GlobalStyle />
-        <RouterProvider router={myAppRouter} />
-      </Provider>
+      <GlobalStyle showOverlay={showOverlay} />
+      <RouterProvider router={myAppRouter} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ showOverlay: boolean }>`
 /**
  * * @global NORMALISE styles
 */
@@ -126,7 +126,7 @@ html {
 }
 
 body {
-  background: var(--white);
+  background: ${(props) => (props.showOverlay ? '#F2F2F2' : 'var(--white)')};
   font-family: var(--bodyFont);
   font-weight: 400;
   line-height: 1.75;
