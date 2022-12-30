@@ -1,4 +1,4 @@
-import { useReducer, useContext, createContext, Dispatch } from 'react';
+import { useReducer, useContext, createContext } from 'react';
 
 import { useAppDispatch } from '../../../hooks/typesHooks';
 import {

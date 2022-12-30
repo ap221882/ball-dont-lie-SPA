@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 
 import { ImCross } from '../../../assets/icons';
 import Heading from '../../Heading/Heading';
