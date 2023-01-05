@@ -3,4 +3,5 @@ import styled from 'styled-components';
 export const StyledHeading = styled.div`
   font-size: 3rem;
   padding: 1rem 2rem;
+  color: var(--primary-400) !important;
 `;

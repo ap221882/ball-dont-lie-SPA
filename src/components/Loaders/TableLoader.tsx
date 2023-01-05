@@ -10,7 +10,7 @@ const StyledTableLoader = styled.div`
 const TableLoader = () => {
   return (
     <StyledTableLoader>
-      <div className="loading"></div>;
+      <div className="loading"></div>
     </StyledTableLoader>
   );
 };
